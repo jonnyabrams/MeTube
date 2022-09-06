@@ -86,7 +86,7 @@ const Menu = ({ darkMode, setDarkMode }) => {
   return (
     <Container>
       <Wrapper>
-        <Link to="/" style={{ textDecoration: "none" }}>
+        <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
           <Logo>
             <Img src={YouTubeLogo} />
             YourTube
