@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import TimeAgo from "react-timeago";
 
+import Me from '../img/me.jpeg'
+
 const Container = styled.div`
   width: ${(props) => props.type !== "sm" && "360px"};
   margin-bottom: ${(props) => (props.type === "sm" ? "10px" : "45px")};
@@ -56,7 +58,7 @@ const Card = ({ type, video }) => {
     <Container type={type}>
       <Image type={type} src={video.imgUrl} />
       <Details type={type}>
-        <ChannelImage type={type} />
+        <ChannelImage type={type} src={Me} />
         <Texts>
           <Title>{video.title}</Title>
           <ChannelName>Jonny Abrams</ChannelName>
