@@ -20,7 +20,7 @@ import YouTubeLogo from "../img/youtube-logo.png";
 
 const Container = styled.div`
   flex: 1;
-  background-color: ${({ theme }) => theme.bg};
+  background-color: ${({ theme }) => theme.bgLighter};
   height: 100vh;
   color: ${({ theme }) => theme.text};
   font-size: 14px;
@@ -78,8 +78,7 @@ const Title = styled.h2`
   font-weight: 500;
   color: #aaaaaa;
   margin-bottom: 20px;
-`
-
+`;
 
 const Menu = ({ darkMode, setDarkMode }) => {
   return (
