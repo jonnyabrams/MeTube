@@ -49,3 +49,25 @@ export const trend = async (req, res, next) => {
     next(error);
   }
 };
+
+export const getByTag = async (req, res, next) => {
+  const tags = req.query.tags.split(",");
+  try {
+    const videos = await Video.find({ tags: { $in: tags } }).limit(20);
+    res.status(200).send(videos);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const search = async (req, res, next) => {
+  const query = req.query.q;
+  try {
+    const videos = await Video.find({
+      title: { $regex: query, $options: "i" },
+    }).limit(40); // case insensitive search
+    res.status(200).send(videos);
+  } catch (error) {
+    next(error);
+  }
+};
