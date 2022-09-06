@@ -2,10 +2,16 @@ import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 
+import videoRoutes from "./routes/videoRoutes.js";
+import commentRoutes from "./routes/commentRoutes.js";
+
 dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 8800;
+
+app.use("/api/videos", videoRoutes);
+app.use("/api/comments", commentRoutes);
 
 const connect = () => {
   mongoose
