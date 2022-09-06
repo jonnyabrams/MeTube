@@ -3,6 +3,7 @@ import express from "express";
 import {
   addVideo,
   addView,
+  getAllVideos,
   getByTag,
   getVideo,
   random,
@@ -14,6 +15,7 @@ const router = express.Router();
 
 router.post("/", addVideo);
 router.get("/find/:id", getVideo);
+router.get("/", getAllVideos);
 router.put("/view/:id", addView);
 router.get("/trend", trend);
 router.get("/random", random);
