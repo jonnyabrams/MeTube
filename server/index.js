@@ -10,6 +10,8 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 8800;
 
+app.use(express.json());
+
 app.use("/api/videos", videoRoutes);
 app.use("/api/comments", commentRoutes);
 
