@@ -1,8 +1,24 @@
+import styled from "styled-components";
+
+import Card from "../components/Card";
+
+const Container = styled.div``;
 
 const Home = () => {
   return (
-    <div>Home</div>
-  )
-}
+    <Container>
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+    </Container>
+  );
+};
 
-export default Home
+export default Home;
