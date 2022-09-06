@@ -23,30 +23,11 @@ const Home = () => {
   }, []);
 
   return (
-    <Link to="/video/test" style={{ textDecoration: "none" }}>
-      <Container>
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-      </Container>
-    </Link>
+    <Container>
+      {videos.map((video) => (
+        <Card key={video._id} video={video} />
+      ))}
+    </Container>
   );
 };
 
