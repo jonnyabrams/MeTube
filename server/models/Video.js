@@ -15,6 +15,8 @@ const VideoSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    url: String,
+    repo: String,
     views: {
       type: Number,
       default: 0,

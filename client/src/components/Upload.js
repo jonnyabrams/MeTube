@@ -77,6 +77,7 @@ const Label = styled.label`
 
 const Upload = ({ setOpen }) => {
   const [showUpload, setShowUpload] = useState(false);
+  const [showMessage, setShowMessage] = useState(false);
   const [image, setImage] = useState(undefined);
   const [video, setVideo] = useState(undefined);
   const [imagePercent, setImagePercent] = useState(0);
@@ -90,6 +91,8 @@ const Upload = ({ setOpen }) => {
   const handleSubmit = () => {
     if (magicWord === process.env.REACT_APP_MAGIC_WORD) {
       setShowUpload(true)
+    } else {
+      setShowMessage(true)
     }
   };
 
@@ -178,6 +181,18 @@ const Upload = ({ setOpen }) => {
                 placeholder="Title"
                 onChange={handleChange}
               />
+              <Input
+                type="text"
+                name="url"
+                placeholder="Deployed URL"
+                onChange={handleChange}
+              />
+              <Input
+                type="text"
+                name="repo"
+                placeholder="GitHub repo"
+                onChange={handleChange}
+              />
               <Description
                 name="description"
                 placeholder="Description"
@@ -211,6 +226,7 @@ const Upload = ({ setOpen }) => {
                 onChange={(e) => setMagicWord(e.target.value)}
               />
               <Button onClick={handleSubmit}>Guess</Button>
+              { showMessage && <Title>Incorrect</Title>}
             </>
           )}
         </Wrapper>

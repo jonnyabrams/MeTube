@@ -11,7 +11,7 @@ import TimeAgo from "react-timeago";
 
 import Comments from "../components/Comments";
 import Card from "../components/Card";
-import { fetchSuccess } from "../redux/videoSlice";
+import Me from "../img/me.jpeg"
 
 const Container = styled.div`
   display: flex;
@@ -97,8 +97,13 @@ const ChannelCounter = styled.span`
   font-size: 12px;
 `;
 
-const ChannelDescription = styled.p`
+const VideoDescription = styled.p`
   font-size: 14px;
+`;
+
+const VideoLink = styled.p`
+  font-size: 14px;
+  margin-bottom: 20px;
 `;
 
 const Subscribe = styled.button`
@@ -159,16 +164,15 @@ const Video = () => {
         <Hr />
         <Channel>
           <ChannelInfo>
-            <Image src="https://yt3.ggpht.com/ytc/AKedOLQOuaQIk0NJjjw5bbsv9v9CrDvNKRVjGii426be4Q=s176-c-k-c0x00ffffff-no-rj-mo" />
+            <Image src={Me} />
             <ChannelDetail>
-              <ChannelName>The Iain Duncan Smiths</ChannelName>
-              <ChannelCounter>13k subscribers</ChannelCounter>
-              <ChannelDescription>
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Vitae
-                sint eos atque ex voluptatibus eum nihil quo nisi aperiam at
-                suscipit, nobis ducimus nostrum debitis sapiente assumenda vero
-                praesentium. Consectetur?
-              </ChannelDescription>
+              <ChannelName>Jonny Abrams</ChannelName>
+              <ChannelCounter>500M subscribers</ChannelCounter>
+              {video.url && <VideoLink>Try it: <a href={video.url} target="_blank" rel="noreferrer">{video.url}</a></VideoLink>}
+              {video.repo && <VideoLink>GitHub repo: <a href={video.repo} target="_blank" rel="noreferrer">{video.repo}</a></VideoLink>}
+              <VideoDescription>
+                {video.description}
+              </VideoDescription>
             </ChannelDetail>
           </ChannelInfo>
           <Subscribe>SUBSCRIBE</Subscribe>
