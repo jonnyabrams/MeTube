@@ -6,6 +6,7 @@ import { useState } from "react";
 
 import Upload from "./Upload";
 import Me from "../img/me.jpeg";
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
   position: sticky;
@@ -74,14 +75,22 @@ const Avatar = styled.img`
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
+  const [q, setQ] = useState("");
+  const navigate = useNavigate();
 
   return (
     <>
       <Container>
         <Wrapper>
           <Search>
-            <Input placeholder="Search" />
-            <SearchOutlinedIcon />
+            <Input
+              placeholder="Search"
+              onChange={(e) => setQ(e.target.value)}
+            />
+            <SearchOutlinedIcon
+              onClick={() => navigate(`/search?q=${q}`)}
+              style={{ cursor: "pointer" }}
+            />
           </Search>
           <User>
             <VideoCallOutlinedIcon onClick={() => setOpen(true)} />

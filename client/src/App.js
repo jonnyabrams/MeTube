@@ -7,6 +7,7 @@ import Navbar from "./components/Navbar";
 import { darkTheme, lightTheme } from "./utils/Theme";
 import Home from "./pages/Home";
 import Video from "./pages/Video";
+import Search from "./pages/Search";
 
 const Container = styled.div`
   display: flex;
@@ -35,6 +36,7 @@ const App = () => {
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="video/:id" element={<Video />} />
+                <Route path="search" element={<Search />} />
               </Routes>
             </Wrapper>
           </Main>
