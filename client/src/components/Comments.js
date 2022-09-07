@@ -83,6 +83,7 @@ const Comments = ({ videoId }) => {
             onChange={(e) => setImg(e.target.value)}
           />
           <Description
+            rows={4}
             placeholder="Your comment"
             onChange={(e) => setComment(e.target.value)}
           />
