@@ -41,7 +41,7 @@ const Text = styled.span`
 const Comment = ({ comment }) => {
   return (
     <Container>
-      <Avatar src={Default} />
+      <Avatar src={comment.img ? comment.img : Default} />
       <Details>
         <Name>
           {comment.username} <Date><TimeAgo date={comment.createdAt} /></Date>

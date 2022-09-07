@@ -29,9 +29,20 @@ const Input = styled.input`
   width: 100%;
 `;
 
+const Description = styled.textarea`
+  border: 1px solid ${({ theme }) => theme.soft};
+  color: ${({ theme }) => theme.text};
+  border-radius: 3px;
+  padding: 5px;
+  width: 100%;
+  background-color: transparent;
+  outline: none;
+`;
+
 const Comments = ({ videoId }) => {
   const [name, setName] = useState("");
   const [comment, setComment] = useState("");
+  const [img, setImg] = useState("");
   const [comments, setComments] = useState([]);
   const navigate = useNavigate();
 
@@ -52,6 +63,7 @@ const Comments = ({ videoId }) => {
     const res = await axios.post("/comments", {
       username: name,
       content: comment,
+      img,
       videoId: videoId,
     });
     res.status === 200 && window.location.reload();
@@ -67,6 +79,10 @@ const Comments = ({ videoId }) => {
             onChange={(e) => setName(e.target.value)}
           />
           <Input
+            placeholder="Your image URL (optional)"
+            onChange={(e) => setImg(e.target.value)}
+          />
+          <Description
             placeholder="Your comment"
             onChange={(e) => setComment(e.target.value)}
           />
