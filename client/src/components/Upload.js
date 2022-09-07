@@ -76,14 +76,22 @@ const Label = styled.label`
 `;
 
 const Upload = ({ setOpen }) => {
+  const [showUpload, setShowUpload] = useState(false);
   const [image, setImage] = useState(undefined);
   const [video, setVideo] = useState(undefined);
   const [imagePercent, setImagePercent] = useState(0);
   const [videoPercent, setVideoPercent] = useState(0);
   const [inputs, setInputs] = useState({});
   const [tags, setTags] = useState([]);
+  const [magicWord, setMagicWord] = useState("");
 
   const navigate = useNavigate();
+
+  const handleSubmit = () => {
+    if (magicWord === process.env.REACT_APP_MAGIC_WORD) {
+      setShowUpload(true)
+    }
+  };
 
   const handleChange = (e) => {
     setInputs((prev) => {
@@ -147,50 +155,67 @@ const Upload = ({ setOpen }) => {
   };
 
   return (
-    <Container>
-      <Wrapper>
-        <Close onClick={() => setOpen(false)}>X</Close>
-        <Title>Upload a new video</Title>
-        <Label>Video:</Label>
-        {videoPercent > 0 ? (
-          "Uploading:" + videoPercent + "%"
-        ) : (
-          <Input
-            type="file"
-            accept="video/*"
-            onChange={(e) => setVideo(e.target.files[0])}
-          />
-        )}
-        <Input
-          type="text"
-          name="title"
-          placeholder="Title"
-          onChange={handleChange}
-        />
-        <Description
-          name="description"
-          placeholder="Description"
-          rows={8}
-          onChange={handleChange}
-        />
-        <Input
-          type="text"
-          placeholder="Separate the tags with commas"
-          onChange={handleTags}
-        />
-        <Label>Image:</Label>
-        {imagePercent > 0 ? (
-          "Uploading:" + imagePercent + "%"
-        ) : (
-          <Input
-            type="file"
-            accept="image/*"
-            onChange={(e) => setImage(e.target.files[0])}
-          />
-        )}
-        <Button onClick={handleUpload}>Upload</Button>
-      </Wrapper>
-    </Container>
+    <>
+      <Container>
+        <Wrapper>
+          <Close onClick={() => setOpen(false)}>X</Close>
+          {showUpload ? (
+            <>
+              <Title>Upload a new video</Title>
+              <Label>Video:</Label>
+              {videoPercent > 0 ? (
+                "Uploading:" + videoPercent + "%"
+              ) : (
+                <Input
+                  type="file"
+                  accept="video/*"
+                  onChange={(e) => setVideo(e.target.files[0])}
+                />
+              )}
+              <Input
+                type="text"
+                name="title"
+                placeholder="Title"
+                onChange={handleChange}
+              />
+              <Description
+                name="description"
+                placeholder="Description"
+                rows={8}
+                onChange={handleChange}
+              />
+              <Input
+                type="text"
+                placeholder="Separate the tags with commas"
+                onChange={handleTags}
+              />
+              <Label>Image:</Label>
+              {imagePercent > 0 ? (
+                "Uploading:" + imagePercent + "%"
+              ) : (
+                <Input
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => setImage(e.target.files[0])}
+                />
+              )}
+              <Button onClick={handleUpload}>Upload</Button>
+            </>
+          ) : (
+            <>
+              <Title>You must enter the magic word to upload a video!</Title>
+              <Input
+                type="text"
+                placeholder="Magic word goes here..."
+                value={magicWord}
+                onChange={(e) => setMagicWord(e.target.value)}
+              />
+              <Button onClick={handleSubmit}>Guess</Button>
+            </>
+          )}
+        </Wrapper>
+      </Container>
+    </>
   );
 };
 
