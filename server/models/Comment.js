@@ -4,7 +4,6 @@ const CommentSchema = new mongoose.Schema(
   {
     username: {
       type: String,
-      required: true,
     },
     videoId: {
       type: String,

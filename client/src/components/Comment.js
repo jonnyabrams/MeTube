@@ -1,4 +1,7 @@
 import styled from "styled-components";
+import TimeAgo from "react-timeago";
+
+import Default from "../img/default.jpeg"
 
 const Container = styled.div`
   display: flex;
@@ -35,19 +38,16 @@ const Text = styled.span`
   font-size: 14px;
 `;
 
-const Comment = () => {
+const Comment = ({ comment }) => {
   return (
     <Container>
-      <Avatar src="https://yt3.ggpht.com/ytc/AKedOLQOuaQIk0NJjjw5bbsv9v9CrDvNKRVjGii426be4Q=s176-c-k-c0x00ffffff-no-rj-mo" />
+      <Avatar src={Default} />
       <Details>
         <Name>
-          Dwigt Rortugal <Date>1 day ago</Date>
+          {comment.username} <Date><TimeAgo date={comment.createdAt} /></Date>
         </Name>
         <Text>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ullam ut
-          voluptates fugit nesciunt repellat nihil nam distinctio! Ipsum in
-          recusandae et amet commodi, eaque ratione excepturi. Esse ad
-          consequuntur mollitia?
+          {comment.content}
         </Text>
       </Details>
     </Container>

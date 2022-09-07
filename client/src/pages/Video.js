@@ -11,7 +11,8 @@ import TimeAgo from "react-timeago";
 
 import Comments from "../components/Comments";
 import Card from "../components/Card";
-import Me from "../img/me.jpeg"
+import Me from "../img/me.jpeg";
+import Recommendation from "../components/Recommendation";
 
 const Container = styled.div`
   display: flex;
@@ -58,10 +59,6 @@ const Button = styled.div`
 const Hr = styled.hr`
   margin: 15px 0px;
   border: 0.5px solid ${({ theme }) => theme.soft};
-`;
-
-const Recommendation = styled.div`
-  flex: 2;
 `;
 
 const Channel = styled.div`
@@ -125,7 +122,16 @@ const VideoFrame = styled.video`
 
 const Video = () => {
   const [video, setVideo] = useState([]);
+  const [videos, setVideos] = useState([]);
   const { id } = useParams();
+
+  useEffect(() => {
+    const fetchVideos = async () => {
+      const res = await axios.get(`/videos/trend`);
+      setVideos(res.data);
+    };
+    fetchVideos();
+  }, []);
 
   useEffect(() => {
     const fetchVideo = async () => {
@@ -168,34 +174,31 @@ const Video = () => {
             <ChannelDetail>
               <ChannelName>Jonny Abrams</ChannelName>
               <ChannelCounter>500M subscribers</ChannelCounter>
-              {video.url && <VideoLink>Try it: <a href={video.url} target="_blank" rel="noreferrer">{video.url}</a></VideoLink>}
-              {video.repo && <VideoLink>GitHub repo: <a href={video.repo} target="_blank" rel="noreferrer">{video.repo}</a></VideoLink>}
-              <VideoDescription>
-                {video.description}
-              </VideoDescription>
+              {video.url && (
+                <VideoLink>
+                  Try it:{" "}
+                  <a href={video.url} target="_blank" rel="noreferrer">
+                    {video.url}
+                  </a>
+                </VideoLink>
+              )}
+              {video.repo && (
+                <VideoLink>
+                  GitHub repo:{" "}
+                  <a href={video.repo} target="_blank" rel="noreferrer">
+                    {video.repo}
+                  </a>
+                </VideoLink>
+              )}
+              <VideoDescription>{video.description}</VideoDescription>
             </ChannelDetail>
           </ChannelInfo>
           <Subscribe>SUBSCRIBE</Subscribe>
         </Channel>
         <Hr />
-        <Comments />
+        <Comments videoId={video._id} />
       </Content>
-      <Recommendation>
-        <Card type="sm" />
-        <Card type="sm" />
-        <Card type="sm" />
-        <Card type="sm" />
-        <Card type="sm" />
-        <Card type="sm" />
-        <Card type="sm" />
-        <Card type="sm" />
-        <Card type="sm" />
-        <Card type="sm" />
-        <Card type="sm" />
-        <Card type="sm" />
-        <Card type="sm" />
-        <Card type="sm" />
-      </Recommendation>
+      <Recommendation tags={video.tags} />
     </Container>
   );
 };
