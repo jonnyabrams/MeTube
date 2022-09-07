@@ -3,9 +3,15 @@ import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
 import ThumbDownOffAltOutlinedIcon from "@mui/icons-material/ThumbDownOffAltOutlined";
 import ReplyOutlinedIcon from "@mui/icons-material/ReplyOutlined";
 import AddTaskOutlinedIcon from "@mui/icons-material/AddTaskOutlined";
+import { useDispatch, useSelector } from "react-redux";
+import { useLocation, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import TimeAgo from "react-timeago";
 
 import Comments from "../components/Comments";
 import Card from "../components/Card";
+import { fetchSuccess } from "../redux/videoSlice";
 
 const Container = styled.div`
   display: flex;
@@ -106,30 +112,41 @@ const Subscribe = styled.button`
   cursor: pointer;
 `;
 
+const VideoFrame = styled.video`
+  max-height: 720px;
+  width: 100%;
+  object-fit: cover;
+`;
+
 const Video = () => {
+  const [video, setVideo] = useState([]);
+  const { id } = useParams();
+
+  useEffect(() => {
+    const fetchVideo = async () => {
+      const res = await axios.get(`/videos/find/${id}`);
+      setVideo(res.data);
+    };
+    fetchVideo();
+  }, [id]);
+
   return (
     <Container>
       <Content>
         <VideoWrapper>
-          <iframe
-            width="560"
-            height="315"
-            src="https://www.youtube.com/embed/x_Cizl7ifkA"
-            title="YouTube video player"
-            frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-          ></iframe>
+          <VideoFrame src={video.videoUrl} controls />
         </VideoWrapper>
-        <Title>Test Video</Title>
+        <Title>{video.title}</Title>
         <Details>
-          <Info>660,908 views • 1 day ago</Info>
+          <Info>
+            {video.views} views • <TimeAgo date={video.createdAt} />
+          </Info>
           <Buttons>
             <Button>
-              <ThumbUpOutlinedIcon /> 780
+              <ThumbUpOutlinedIcon /> {video.likes?.length}
             </Button>
             <Button>
-              <ThumbDownOffAltOutlinedIcon /> 145
+              <ThumbDownOffAltOutlinedIcon /> {video.dislikes?.length}
             </Button>
             <Button>
               <ReplyOutlinedIcon /> Share

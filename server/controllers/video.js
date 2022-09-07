@@ -43,7 +43,7 @@ export const random = async (req, res, next) => {
 
 export const getAllVideos = async (req, res, next) => {
   try {
-    const videos = await Video.find(); // 1 for least viewed, -1 for most viewed
+    const videos = await Video.find();
     res.status(200).send(videos);
   } catch (error) {
     next(error);

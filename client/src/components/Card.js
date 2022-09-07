@@ -1,7 +1,11 @@
 import styled from "styled-components";
 import TimeAgo from "react-timeago";
+import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import axios from "axios";
 
-import Me from '../img/me.jpeg'
+import { view } from "../redux/videoSlice";
+import Me from "../img/me.jpeg";
 
 const Container = styled.div`
   width: ${(props) => props.type !== "sm" && "360px"};
@@ -54,20 +58,33 @@ const Info = styled.div`
 `;
 
 const Card = ({ type, video }) => {
+  const dispatch = useDispatch();
+
+  const handleView = async () => {
+    await axios.put(`/videos/view/${video._id}`);
+    dispatch(view);
+  };
+
   return (
-    <Container type={type}>
-      <Image type={type} src={video.imgUrl} />
-      <Details type={type}>
-        <ChannelImage type={type} src={Me} />
-        <Texts>
-          <Title>{video.title}</Title>
-          <ChannelName>Jonny Abrams</ChannelName>
-          <Info>
-            {video.views} views • <TimeAgo date={video.createdAt} />
-          </Info>
-        </Texts>
-      </Details>
-    </Container>
+    <Link
+      to={`/video/${video?._id}`}
+      style={{ textDecoration: "none" }}
+      onClick={handleView}
+    >
+      <Container type={type}>
+        <Image type={type} src={video?.imgUrl} />
+        <Details type={type}>
+          <ChannelImage type={type} src={Me} />
+          <Texts>
+            <Title>{video?.title}</Title>
+            <ChannelName>Jonny Abrams</ChannelName>
+            <Info>
+              {video?.views} views • <TimeAgo date={video?.createdAt} />
+            </Info>
+          </Texts>
+        </Details>
+      </Container>
+    </Link>
   );
 };
 
